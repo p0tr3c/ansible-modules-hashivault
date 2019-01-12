@@ -26,14 +26,14 @@ RUN pip install virtualenv
 RUN pip install virtualenvwrapper
 
 # Download and install vault
-ENV VAULT_VERSION 0.10.1
+ENV VAULT_VERSION 1.0.1
 RUN wget "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" && \
     unzip "vault_${VAULT_VERSION}_linux_amd64.zip" && \
     cp vault /usr/local/sbin/vault && \
     chmod 0755 /usr/local/sbin/vault && \
     rm -rf /tmp/build/*
 
-RUN echo "${USER_NAME} ALL=ALL NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "%${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Create non-root user
 RUN groupadd -r -g ${GID} ${USER_NAME} &&  \

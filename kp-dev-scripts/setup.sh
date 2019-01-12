@@ -4,17 +4,19 @@ GITHUB_DIR="/mnt/Github"
 # Setup tmux consoles
 SESSION=dev
 
-source /usr/local/bin/virtualenvwrapper.sh && /
-workon ansible-modules-hashivault && /
+source /usr/local/bin/virtualenvwrapper.sh && \
+workon ansible-modules-hashivault && \
 
 # Setup ansible
-pip install -r "$GITHUB_DIR/ansible/requirements.txt" && /
+pip install ansible && \
 
 # Install local hvac
-pip install -e "$GITHUB_DIR/hvac/" && /
+pip install -e "$GITHUB_DIR/hvac/" && \
 
 # Install local ansible-modules-hashivault
-pip install -e "$GITHUB_DIR/ansible-modules-hashivault/"
+pip install -e "$GITHUB_DIR/ansible-modules-hashivault/" &&  \
+cd "$GITHUB_DIR/ansible-modules-hashivault/" && \
+bash "./link.sh"
 
 
 tmux ls | grep $SESSION 2>/dev/null
